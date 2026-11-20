@@ -79,7 +79,13 @@ function Inner() {
 
       <div className="grid three">
         <div className="card p0 table-wrap">
-          {grupos.length === 0 && <div className="muted" style={{ padding: 18 }}>Nenhum horário {tab === "proximos" ? "marcado" : "no histórico"}.</div>}
+          {grupos.length === 0 && (
+            <div className="vazio">
+              <span className="arco"><CalendarPlus size={20} /></span>
+              <b>{tab === "proximos" ? "Agenda livre por enquanto" : "Nenhum atendimento no histórico"}</b>
+              <span>{tab === "proximos" ? "Os horários que a Laura marcar aparecem aqui. Para marcar você mesma, use Novo horário." : "Atendimentos passados aparecem aqui para marcar presença ou falta."}</span>
+            </div>
+          )}
           {grupos.map(([d, items]) => (
             <div key={d}>
               <div style={{ padding: "10px 18px", background: "var(--panel-2)", fontWeight: 600, textTransform: "capitalize", borderBottom: "1px solid var(--border)" }}>{d}</div>

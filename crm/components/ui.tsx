@@ -3,7 +3,7 @@ import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
 import type { ReactNode } from "react";
 import { stageColor, stageLabel } from "@/lib/labels";
 
-const PALETTE = ["#0d9488", "#3b82f6", "#8b5cf6", "#f59e0b", "#ef4444", "#14b8a6", "#ec4899", "#6366f1"];
+const PALETTE = ["#9C4E6C", "#B48C57", "#7A5C8E", "#C99A5B", "#C0646E", "#5E9A9A", "#D78DA9", "#4A2737"];
 
 export function Avatar({ name, size }: { name: string; size?: "sm" }) {
   const clean = (name || "?").replace(/[^\p{L}\s]/gu, "").trim();
@@ -42,7 +42,7 @@ export function Kpi({ icon, label, value, sub, delta }: { icon: ReactNode; label
 }
 
 export function Empty({ icon, title, children }: { icon: ReactNode; title: string; children?: ReactNode }) {
-  return <div className="empty">{icon}<b style={{ color: "var(--text)" }}>{title}</b>{children}</div>;
+  return <div className="vazio"><span className="arco">{icon}</span><b>{title}</b>{children}</div>;
 }
 
 export function timeAgo(d: string | null | undefined) {

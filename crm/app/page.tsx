@@ -22,7 +22,7 @@ type Heat = { dow: number; hora: number; total: number };
 type Attn = { id: string; nome: string; detalhe: string; quando: string | null; tipo: "transbordo" | "nao_lida" | "reuniao" };
 
 const PERIODS = [{ k: 1, l: "Hoje" }, { k: 7, l: "7 dias" }, { k: 30, l: "30 dias" }, { k: 90, l: "90 dias" }];
-const COLORS = ["#0d9488", "#3b82f6", "#8b5cf6", "#f59e0b", "#ef4444", "#14b8a6", "#ec4899", "#64748b"];
+const COLORS = ["#9C4E6C", "#B48C57", "#7A5C8E", "#C99A5B", "#C0646E", "#5E9A9A", "#D78DA9", "#8E7280"];
 const DOW = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
 export default function Dashboard() {
@@ -82,9 +82,9 @@ function DashboardInner() {
   }, [days]);
 
   const funnel = useMemo(() => m ? [
-    { l: "Novos contatos", v: m.leads, c: "#3b82f6" },
-    { l: "Agendaram", v: m.agendados, c: "#0d9488" },
-    { l: "Foram atendidas", v: m.atendidas, c: "#16a34a" },
+    { l: "Novos contatos", v: m.leads, c: "#B48C57" },
+    { l: "Agendaram", v: m.agendados, c: "#9C4E6C" },
+    { l: "Foram atendidas", v: m.atendidas, c: "#6FA287" },
   ] : [], [m]);
 
   const heatMax = Math.max(1, ...heat.map((h) => Number(h.total)));
@@ -162,16 +162,16 @@ function DashboardInner() {
                 <ResponsiveContainer>
                   <AreaChart data={m.por_dia.map((d) => ({ ...d, dia: new Date(d.dia + "T12:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" }) }))}>
                     <defs>
-                      <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#3b82f6" stopOpacity={.35} /><stop offset="100%" stopColor="#3b82f6" stopOpacity={0} /></linearGradient>
-                      <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#0d9488" stopOpacity={.4} /><stop offset="100%" stopColor="#0d9488" stopOpacity={0} /></linearGradient>
+                      <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#B48C57" stopOpacity={.35} /><stop offset="100%" stopColor="#B48C57" stopOpacity={0} /></linearGradient>
+                      <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#9C4E6C" stopOpacity={.4} /><stop offset="100%" stopColor="#9C4E6C" stopOpacity={0} /></linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
                     <XAxis dataKey="dia" stroke="var(--muted)" fontSize={12} tickLine={false} axisLine={false} />
                     <YAxis allowDecimals={false} stroke="var(--muted)" fontSize={12} tickLine={false} axisLine={false} width={28} />
                     <Tooltip contentStyle={{ background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 10 }} />
                     <Legend iconType="circle" />
-                    <Area type="monotone" dataKey="leads" name="Contatos" stroke="#3b82f6" strokeWidth={2} fill="url(#gl)" />
-                    <Area type="monotone" dataKey="agendados" name="Agendados" stroke="#0d9488" strokeWidth={2} fill="url(#ga)" />
+                    <Area type="monotone" dataKey="leads" name="Contatos" stroke="#B48C57" strokeWidth={2} fill="url(#gl)" />
+                    <Area type="monotone" dataKey="agendados" name="Agendados" stroke="#9C4E6C" strokeWidth={2} fill="url(#ga)" />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -204,7 +204,7 @@ function DashboardInner() {
                     <span className="lbl">{d}</span>
                     {Array.from({ length: 24 }, (_, h) => {
                       const v = Number(heat.find((x) => x.dow === di && x.hora === h)?.total ?? 0);
-                      return <span key={`${di}-${h}`} className="c" title={`${d} ${h}h: ${v} mensagens`} style={v ? { background: `rgba(13,148,136,${0.15 + (v / heatMax) * 0.85})` } : undefined} />;
+                      return <span key={`${di}-${h}`} className="c" title={`${d} ${h}h: ${v} mensagens`} style={v ? { background: `rgba(156,78,108,${0.15 + (v / heatMax) * 0.85})` } : undefined} />;
                     })}
                   </Fragment>
                 ))}
@@ -217,10 +217,10 @@ function DashboardInner() {
                 <span className="muted">das mensagens enviadas pela Laura</span>
               </div>
               <div style={{ marginTop: 14 }}>
-                <HBar l="Mensagens da Laura" v={m.msgs_enviadas_ia} max={Math.max(m.msgs_enviadas_ia, m.msgs_enviadas_equipe, 1)} c="#0d9488" icon={<Bot size={13} />} />
-                <HBar l="Mensagens da Lis" v={m.msgs_enviadas_equipe} max={Math.max(m.msgs_enviadas_ia, m.msgs_enviadas_equipe, 1)} c="#6366f1" />
-                <HBar l="Passadas para a Lis" v={m.transbordos} max={Math.max(m.leads, 1)} c="#f59e0b" icon={<LifeBuoy size={13} />} />
-                <HBar l="Follow-ups automáticos" v={m.followups} max={Math.max(m.leads, m.followups, 1)} c="#3b82f6" icon={<Zap size={13} />} />
+                <HBar l="Mensagens da Laura" v={m.msgs_enviadas_ia} max={Math.max(m.msgs_enviadas_ia, m.msgs_enviadas_equipe, 1)} c="#9C4E6C" icon={<Bot size={13} />} />
+                <HBar l="Mensagens da Lis" v={m.msgs_enviadas_equipe} max={Math.max(m.msgs_enviadas_ia, m.msgs_enviadas_equipe, 1)} c="#4A2737" />
+                <HBar l="Passadas para a Lis" v={m.transbordos} max={Math.max(m.leads, 1)} c="#C99A5B" icon={<LifeBuoy size={13} />} />
+                <HBar l="Follow-ups automáticos" v={m.followups} max={Math.max(m.leads, m.followups, 1)} c="#B48C57" icon={<Zap size={13} />} />
               </div>
             </div>
           </div>
@@ -231,9 +231,9 @@ function DashboardInner() {
               {STAGES.map((s) => <HBar key={s.key} l={s.label} v={stages[s.key] ?? 0} max={totalAtivos} c={s.color} />)}
             </div>
             <Breakdown title="Procedimento de interesse" data={m.por_procedimento} />
-            <Breakdown title="Serviços agendados" data={m.agendados_por_servico} color="#8b5cf6" />
-            <Breakdown title="Por que passou para a Lis" data={m.motivos_transbordo} color="#f59e0b" />
-            <Breakdown title="Motivos de perda" data={m.motivos_perda} color="#64748b" />
+            <Breakdown title="Serviços agendados" data={m.agendados_por_servico} color="#7A5C8E" />
+            <Breakdown title="Por que passou para a Lis" data={m.motivos_transbordo} color="#C99A5B" />
+            <Breakdown title="Motivos de perda" data={m.motivos_perda} color="#8E7280" />
           </div>
         </div>
       )}
@@ -250,7 +250,7 @@ function HBar({ l, v, max, c, icon }: { l: string; v: number; max: number; c: st
   );
 }
 
-function Breakdown({ title, data, color = "#0d9488" }: { title: string; data: Record<string, number>; color?: string }) {
+function Breakdown({ title, data, color = "#9C4E6C" }: { title: string; data: Record<string, number>; color?: string }) {
   const rows = Object.entries(data ?? {}).sort((a, b) => b[1] - a[1]);
   const max = Math.max(1, ...rows.map((r) => r[1]));
   return (

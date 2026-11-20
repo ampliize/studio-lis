@@ -71,7 +71,7 @@ export default function Shell({ children, flush }: { children: React.ReactNode; 
     <div className={`app ${open ? "menu-open" : ""}`}>
       <header className="topbar">
         <button className="btn ghost sm" aria-label="Abrir menu" onClick={() => setOpen(true)}><Menu size={20} /></button>
-        <span className="brand-mark sm">L</span>
+        <span className="brand-mark sm">LC</span>
         <b>Studio Lis Cazais</b>
         {counts.transbordos + counts.naoLidas > 0 && <span className="count">{counts.transbordos + counts.naoLidas}</span>}
       </header>
@@ -79,8 +79,8 @@ export default function Shell({ children, flush }: { children: React.ReactNode; 
       <aside className="sidebar">
         <button className="btn ghost sm close-menu" aria-label="Fechar menu" onClick={() => setOpen(false)}><X size={20} /></button>
         <div className="brand">
-          <span className="brand-mark">L</span>
-          <div><b>Studio Lis Cazais</b><small>Atendimento · Laura</small></div>
+          <span className="brand-mark">LC</span>
+          <div><b>Studio Lis Cazais</b><small>Atendimento da Laura</small></div>
         </div>
         {GROUPS.map((g) => (
           <nav className="nav" key={g.label}>
